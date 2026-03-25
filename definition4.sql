@@ -1,13 +1,22 @@
---Write a PL/SQL block using a cursor FOR loop to display name and the basic salary of top 3 highest paid employees. (Use Cursor For Loop)
+--Write a PL/SQL block to display the salary of that employee whose age is 45 year otherwise display appropriate message using exception handling.
 
 set serveroutput on
 
+declare
+	a emp.age%TYPE;
+	xeid emp.eid%TYPE;
+	enm emp.name%TYPE;
+	sal emp.bas_salary%TYPE;
+
 begin
-	for r1 IN (select name, bas_salary from (select name,bas_salary from emp order by bas_salary DESC) where rownum<=3)
-	loop
-		DBMS_OUTPUT.PUT_LINE ('Name:'||r1.name);
-		DBMS_OUTPUT.PUT_LINE ('Salary:'||r1.bas_Salary);
-	end loop;
+	select eid,name,bas_salary INTO xeid,enm,sal from emp where age=45;
+		dbms_output.put_line('Employee ID:'||xeid);
+		dbms_output.put_line('Employee name:'||enm);
+		dbms_output.put_line('Employee Salary:'||sal);
+
+EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+	dbms_output.put_line('No employee found whose age is 45');
 
 end;
 /

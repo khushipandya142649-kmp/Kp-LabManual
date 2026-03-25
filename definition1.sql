@@ -1,14 +1,22 @@
---Write a PL/SQL block that uses a cursor attribute SQL%ROWCOUNT to raise the basic salary of employees by 10% that are working in department number 10 and also display the appropriate message based on the existence to the 
---record in the EMP table. (Use Implicit Cursor)
+--Write a PL/SQL block to accept student name from a user if it is exist display his/her result from RESULT table otherwise display appropriate message using 
+--exception handling.
 
 set serveroutput on
 
-begin
-	update emp set BAs_SALARY=bas_salary + (Bas_salary*0.10) where deptno=10;
-		dbms_output.put_line('Salary Updated..');
+declare
+	rn result.rollno%TYPE;
+	snm result.name%TYPE:='&snm';
+	p result.per%TYPE;
 	
-	if SQL%FOUND then
-		dbms_output.put_line('Total no of records updated are:'||SQL%ROWCOUNT);
-	end if;
+begin
+	select rollno,name,per INTO rn,snm,p from result where name=snm;
+	dbms_output.put_line('Roll No: '||rn);
+	dbms_output.put_line('Student Name: '||snm);
+	dbms_output.put_line('Percentage: '||p);
+
+EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+	dbms_output.put_line('Student name entered by u not found in student table:');
+
 end;
 /
