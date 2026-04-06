@@ -1,22 +1,11 @@
---Write a PL/SQL block to accept employee name from a user if it is exist display his/her basic salary otherwise display appropriate message using exception handling.
+/*Write a procedure that search’s whether the given employee id is present or not in the table. If employee is found then show its name otherwise raise appropriate error message (Use both IN and OUT mode variables) and also write a PL/SQL block to call the procedure.*/
 
-set serveroutput on
-
-declare
-	xeid emp.eid%TYPE:=&xeid;
-	enm emp.name%TYPE;
-	dno emp.deptno%TYPE;
-	sal emp.bas_salary%TYPE;
-
-begin
-	select name,deptno,bas_salary INTO enm,dno,sal from emp where eid=xeid;
-		dbms_output.put_line('Employeename:'||enm);
-		dbms_output.put_line('Department no:'||dno);
-		dbms_output.put_line('Employee Salary:'||sal);
-
-EXCEPTION
+create or replace procedure pro_def3(xeid IN number,xenm OUT char)
+IS
+BEGIN
+	select ename INTO xenm from emp where EID=xeid;
+Exception
 	WHEN NO_DATA_FOUND THEN
-		dbms_output.put_line('Employee ID entered by u not found in emp table:');
-
-end;
+		dbms_output.put_line('inputted eid is not exists in emp table');
+end pro_def3;
 /

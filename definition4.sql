@@ -1,22 +1,10 @@
---Write a PL/SQL block to display the salary of that employee whose age is 45 year otherwise display appropriate message using exception handling.
+-- Write a function that returns the cube of the given number. Execute the function using separate PL/SQL block and on the command line.
 
-set serveroutput on
-
-declare
-	a emp.age%TYPE;
-	xeid emp.eid%TYPE;
-	enm emp.name%TYPE;
-	sal emp.bas_salary%TYPE;
-
+create or replace function fun_def4(x in number,ans out number) 
+Return number
+is
 begin
-	select eid,name,bas_salary INTO xeid,enm,sal from emp where age=45;
-		dbms_output.put_line('Employee ID:'||xeid);
-		dbms_output.put_line('Employee name:'||enm);
-		dbms_output.put_line('Employee Salary:'||sal);
-
-EXCEPTION
-	WHEN NO_DATA_FOUND THEN
-	dbms_output.put_line('No employee found whose age is 45');
-
-end;
+	ans:=x * x * x;
+	return ans;
+end fun_def4;
 /

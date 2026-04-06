@@ -1,21 +1,9 @@
---Write a PL/SQL block that explains the use of ZERO_DIVIDE exception.
+--Write a simple procedure that increases the basic salary of employees for the given department no by percentage inputted by the user using IN parameter.
 
-set serveroutput on
-
-declare
-	a number:=&a;
-	b number:=&b;
-	ans number;
-
+create or replace procedure pro_def2(xdeptno IN number,xper IN number)
+is
 begin
-	dbms_output.put_line('value of a: '||a);
-	dbms_output.put_line('value of b: '||b);
-	ans:=a/b;
-	dbms_output.put_line('answer :'||ans);
-
-EXCEPTION
-	WHEN ZERO_DIVIDE THEN
-	dbms_output.put_line('value of b must not be zero');
-
-end;
+	update emp set BASICSAL=BASICSAL + (BASICSAL * (xper/100)) WHERE DEPTNO=xdeptno;
+	commit;
+end pro_def2;
 /
